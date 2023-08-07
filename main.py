@@ -1,17 +1,14 @@
-#Convert FASTA to a simple 2-value CSV with headers and sequences
+# Convert FASTA to a simple 2-value CSV with headers and sequences
 
-import pandas as pd
-
-filename = input("Enter the filename to convert:  ")
+path = input("Enter the path to the file to be converted:  ")
 
 output_lists = []
 append_needed = False
 
-with open(filename, "r") as file: 
+with open(path, "r") as file:
 	for line in file.readlines(): 
 		line = line.rstrip("\n")
-		print(line)
-		if len(line) == 0: 
+		if len(line) == 0:
 			continue
 		if line[0] == ">": 
 			if append_needed: 
@@ -31,8 +28,7 @@ for item in output_lists:
 	current_line = item[0] + "," + item[1] + "\n"
 	output_lines.append(current_line)
 
-export_filename = filename.split(".")
-export_filename = export_filename[0] + ".csv"
+export_path = path.rsplit(".",1)[0] + ".csv"
 
-with open(export_filename, "w") as output_file: 
+with open(export_path, "w") as output_file:
 	output_file.writelines(output_lines)
